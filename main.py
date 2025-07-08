@@ -51,3 +51,6 @@ def subir_imagen(file: UploadFile = File(...)):
         return {"url": result["secure_url"]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+@app.get("/")
+def root():
+    return {"mensaje": "¡Bienvenido a la API de la Tienda!"}
