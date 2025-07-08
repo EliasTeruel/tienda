@@ -1,0 +1,213 @@
+Frontend (React) → Firebase Hosting + Firebase Auth
+                   ↓
+Backend (FastAPI - Python) → Railway o Render
+                             ↓
+PostgreSQL (Neon.tech)
+                             ↓
+Imágenes (Cloudinary)
+
+------------------------------------------------------------------
+1. Configurar tu Backend (FastAPI)
+A. Crear proyecto backend local:
+mkdir mi-tienda-backend
+cd mi-tienda-backend
+python -m venv env
+source env/bin/activate  # Windows: .\env\Scripts\activate
+pip install fastapi uvicorn python-dotenv psycopg2-binary
+
+B. Estructura inicial:
+mi-tienda-backend/
+├── main.py
+├── models.py
+├── routes/
+│   └── productos.py
+├── .env
+└── requirements.txt
+
+C. Código base main.py:
+from fastapi import FastAPI
+from routes import productos
+
+app = FastAPI()
+
+app.include_router(productos.router, prefix="/productos")
+
+
+D. Crear routes/productos.py:
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/")
+def get_productos():
+    return [{"id": 1, "nombre": "Producto demo"}]
+
+
+
+E. Guardar dependencias:
+pip freeze > requirements.txt
+
+------------------------------------------------------------------
+ 2. Subir Backend a Railway o Render
+Railway (más simple):
+Crear cuenta: https://railway.app
+
+Nuevo proyecto → “Deploy from GitHub” o “Start from scratch”
+
+Subís el proyecto a GitHub
+
+Railway detecta main.py y requirements.txt automáticamente
+
+Setea variable PORT = 8000 en Railway
+
+🚀 El backend quedará disponible en https://tuapp.up.railway.app
+
+------------------------------------------------------------------
+
+3. Crear base de datos en Neon
+Ir a: https://neon.tech
+
+Crear proyecto → copiar cadena de conexión PostgreSQL
+
+En tu backend, guardar en .env:
+DATABASE_URL=postgresql://usuario:password@host.db.neon.tech:5432/dbname
+
+
+------------------------------------------------------------------
+
+Usar en tu backend con psycopg2 o SQLAlchemy (puedo ayudarte con eso luego).
+
+
+------------------------------------------------------------------
+4. Configurar Cloudinary (para imágenes)
+Ir a: https://cloudinary.com
+
+Crear cuenta y copiar datos del dashboard:
+
+CLOUD_NAME
+
+API_KEY
+
+API_SECRET
+
+Guardar en .env del backend
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
+
+
+------------------------------------------------------------------
+Usás cloudinary SDK en Python:
+
+pip install cloudinary
+
+
+------------------------------------------------------------------
+
+5. Crear el Frontend en React
+npx create-react-app mi-tienda-frontend
+cd mi-tienda-frontend
+npm install firebase axios react-router-dom
+------------------------------------------------------------------
+Configurar Firebase:
+Ir a: https://console.firebase.google.com
+
+Crear proyecto → activar Authentication → elegir “Email/Password” o “Google”
+
+Activar Hosting → te dará un dominio mi-tienda.web.app
+
+Agregar Firebase al React:
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  appId: "...",
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+
+
+------------------------------------------------------------------
+6. Conectar frontend con backend
+Usás axios desde React para llamar a https://tu-backend.up.railway.app/productos
+
+Manejás tokens de login desde Firebase para validar en tu API si querés proteger endpoints
+
+
+------------------------------------------------------------------
+7. Subir el frontend a Firebase Hosting
+
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+# Seleccionás el proyecto y como carpeta `build/`
+npm run build
+firebase deploy
+
+
+------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
