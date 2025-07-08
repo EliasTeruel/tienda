@@ -1,0 +1,6 @@
+# Ignorar entorno virtual local
+env/
+venv/
+
+# Ignorar archivos sensibles
+*.env
