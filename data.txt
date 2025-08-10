@@ -7,22 +7,47 @@ PostgreSQL (Neon.tech)
 Imágenes (Cloudinary)
 
 ------------------------------------------------------------------
+Para clonar el repositorio y que funcione en otra computadora, sigue estos pasos:
+
+Clonar el repositorio: Abre la terminal y ejecuta:
+
+git clone <URL_DEL_REPOSITORIO>
+cd <nombre_del_repositorio>
+
+Crear y activar un entorno virtual (recomendado):
+
+python -m venv venv
+venv\Scripts\activate
+
+Instalar las dependencias: Si tienes un archivo requirements.txt, ejecuta:
+
+pip install -r requirements.txt
+
+Configurar variables de entorno:
+
+Renombra .env.example a .env. (NO HACE FALTA ESTA PARTE)
+Completa los valores necesarios (Cloudinary, DATABASE_URL, etc.).
+Inicializar la base de datos: Ejecuta el script de inicialización:
+
+python tienda/fastapi_tienda/app/scripts/init_db.py (NO HACE FALTA ESTA PARTE)
+
+Ejecutar el servidor FastAPI:
+
+uvicorn app.main:app --reload
+
+
+Notas:
+
+Instala Python y pip si no los tienes.
+Instala uvicorn si no está: pip install uvicorn.
+Instala las librerías necesarias (FastAPI, SQLAlchemy, cloudinary, etc.).
+
+------------------------------------------------------------------
 1. Configurar tu Backend (FastAPI)
-A. Crear proyecto backend local:
-mkdir mi-tienda-backend
-cd mi-tienda-backend
+
 python -m venv env
 source env/bin/activate  # Windows: .\env\Scripts\activate
 pip install fastapi uvicorn python-dotenv psycopg2-binary
-
-B. Estructura inicial:
-mi-tienda-backend/
-├── main.py
-├── models.py
-├── routes/
-│   └── productos.py
-├── .env
-└── requirements.txt
 
 
 nueva estructura:
@@ -32,6 +57,7 @@ fastapi_tienda/
 │   ├── main.py               # Punto de entrada de la app
 │   ├── __init__.py
 │   ├── config.py             # Configuración (Cloudinary, CORS, variables de entorno)
+│   ├── crud.py             
 │   ├── models.py             # Modelos Pydantic
 │   ├── database.py           # Simulación o conexión a base de datos
 │   ├── routes/
@@ -47,34 +73,12 @@ fastapi_tienda/
 └── README.md
 
 
-
-
-C. Código base main.py:
-from fastapi import FastAPI
-from routes import productos
-
-app = FastAPI()
-
-app.include_router(productos.router, prefix="/productos")
-
-
-D. Crear routes/productos.py:
-from fastapi import APIRouter
-
-router = APIRouter()
-
-@router.get("/")
-def get_productos():
-    return [{"id": 1, "nombre": "Producto demo"}]
-
-
-
-E. Guardar dependencias:
+Guardar dependencias:
 pip freeze > requirements.txt
 
 ------------------------------------------------------------------
- 2. Subir Backend a Railway o Render
-Railway (más simple):
+ 2. Subir Backend a Railway
+Railway:
 Crear cuenta: https://railway.app
 
 Nuevo proyecto → “Deploy from GitHub” o “Start from scratch”
@@ -98,10 +102,20 @@ En tu backend, guardar en .env:
 DATABASE_URL=postgresql://usuario:password@host.db.neon.tech:5432/dbname
 
 
+se crea tabla con el script init_db.py que para que funcione se debe instalar:
+
+pip install sqlalchemy psycopg2-binary
+python scripts/init_db.py
+
+Esto:
+
+Crea la tabla productos si no existe.
+
+Inserta dos productos de ejemplo.
+
+
+
 ------------------------------------------------------------------
-
-Usar en tu backend con psycopg2 o SQLAlchemy (puedo ayudarte con eso luego).
-
 
 ------------------------------------------------------------------
 4. Configurar Cloudinary (para imágenes)
