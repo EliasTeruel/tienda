@@ -19,3 +19,23 @@ def get_db():
 @router.get("/productos", response_model=List[Producto])
 def listar_productos(db: Session = Depends(get_db)):
     return crud.listar_productos(db)
+
+@router.get("/productos/{producto_id}", response_model=Producto)
+def obtener_producto(producto_id: int, db: Session = Depends(get_db)):
+    producto = crud.obtener_producto(db, producto_id)
+    if not producto:
+        return {"error": "Producto no encontrado"}
+    return producto
+
+@router.post("/productos", response_model=Producto)
+def crear_producto(producto: Producto, db: Session = Depends(get_db)):
+    producto_data = producto.dict()
+    return crud.crear_producto(db, producto_data)
+
+@router.put("/productos/{producto_id}", response_model=Producto)
+def actualizar_producto(producto_id: int, producto: Producto, db: Session = Depends(get_db)):
+    producto_data = producto.dict()
+    producto_actualizado = crud.actualizar_producto(db, producto_id, producto_data)
+    if not producto_actualizado:
+        return {"error": "Producto no encontrado"}
+    return producto_actualizado

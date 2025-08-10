@@ -4,6 +4,10 @@ from dotenv import load_dotenv  # Para cargar variables desde .env
 from fastapi.middleware.cors import CORSMiddleware  # Middleware para CORS
 
 load_dotenv()  # Carga las variables de entorno desde el archivo .env
+# Imprime las variables para verificar que se leen correctamente
+print("CLOUDINARY_CLOUD_NAME:", os.getenv("CLOUDINARY_CLOUD_NAME"))
+print("CLOUDINARY_API_KEY:", os.getenv("CLOUDINARY_API_KEY"))
+print("CLOUDINARY_API_SECRET:", os.getenv("CLOUDINARY_API_SECRET"))
 
 # Configuración de Cloudinary usando las variables de entorno
 cloudinary.config(
