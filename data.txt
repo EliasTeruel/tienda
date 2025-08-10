@@ -24,6 +24,31 @@ mi-tienda-backend/
 ├── .env
 └── requirements.txt
 
+
+nueva estructura:
+fastapi_tienda/
+│
+├── app/
+│   ├── main.py               # Punto de entrada de la app
+│   ├── __init__.py
+│   ├── config.py             # Configuración (Cloudinary, CORS, variables de entorno)
+│   ├── models.py             # Modelos Pydantic
+│   ├── database.py           # Simulación o conexión a base de datos
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── productos.py      # Rutas de productos
+│   │   ├── imagenes.py       # Rutas de subida de imágenes
+│   └── services/
+│       ├── __init__.py
+│       ├── cloudinary_service.py  # Lógica de subida de imágenes
+│
+├── .env                      # Variables de entorno
+├── requirements.txt          # Dependencias del proyecto
+└── README.md
+
+
+
+
 C. Código base main.py:
 from fastapi import FastAPI
 from routes import productos
