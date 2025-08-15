@@ -18,7 +18,7 @@ cloudinary.config(
 
 # Configuración de CORS para la API
 CORS_SETTINGS = {
-    "allow_origins": ["*"],  # Permite todos los orígenes
+    "allow_origins": ["http://localhost:3000"],  # Permite peticiones solo desde tu frontend
     "allow_credentials": True,
     "allow_methods": ["*"],  # Permite todos los métodos HTTP
     "allow_headers": ["*"]   # Permite todos los headers

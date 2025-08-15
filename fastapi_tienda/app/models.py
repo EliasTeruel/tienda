@@ -24,3 +24,24 @@ class Producto(BaseModel):
 
     class Config:
         orm_mode = True  # Permite convertir desde objetos ORM (SQLAlchemy) a Pydantic
+
+
+
+
+# Modelo para crear productos (sin id)
+class ProductoCreate(BaseModel):
+    nombre: str
+    descripcion: str
+    precio: float
+    imagenes: List[str] = []
+
+# Modelo para mostrar productos (con id)
+class Producto(BaseModel):
+    id: int
+    nombre: str
+    descripcion: str
+    precio: float
+    imagenes: List[str] = []
+
+    class Config:
+        orm_mode = True

@@ -1,6 +1,5 @@
 # app/services/cloudinary_service.py
 import cloudinary.uploader
-# from app.config import cloudinary
 def subir_imagen_a_cloudinary(file_bytes):
     """
     Sube una imagen a Cloudinary y devuelve la URL segura.

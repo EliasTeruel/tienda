@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends  # Para crear rutas y dependencias
 from sqlalchemy.orm import Session  # Para manejar sesiones de la BD
 from typing import List  # Tipo para listas
-from app.models import Producto  # Modelo Pydantic para la API
+from app.models import Producto, ProductoCreate  # Modelo Pydantic para la API
 from app.database import SessionLocal  # Fábrica de sesiones de la BD
 from app import crud  # Funciones CRUD
 
@@ -28,7 +28,7 @@ def obtener_producto(producto_id: int, db: Session = Depends(get_db)):
     return producto
 
 @router.post("/productos", response_model=Producto)
-def crear_producto(producto: Producto, db: Session = Depends(get_db)):
+def crear_producto(producto: ProductoCreate, db: Session = Depends(get_db)):
     producto_data = producto.dict()
     return crud.crear_producto(db, producto_data)
 
