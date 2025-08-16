@@ -48,7 +48,15 @@ def crear_producto(db: Session, producto_data: dict):
     db.add(nuevo_producto)  # Agrega el producto a la sesión
     db.commit()  # Guarda los cambios en la BD
     db.refresh(nuevo_producto)  # Actualiza la instancia con el ID generado
-    return nuevo_producto  # Devuelve el producto creado
+    # Convierte el string de imágenes a lista antes de devolver
+    imagenes = [img for img in nuevo_producto.imagenes.split(",") if img.strip()]
+    return {
+        "id": nuevo_producto.id,
+        "nombre": nuevo_producto.nombre,
+        "descripcion": nuevo_producto.descripcion,
+        "precio": nuevo_producto.precio,
+        "imagenes": imagenes
+    }
 
 # 4. Actualizar un producto existente
 def actualizar_producto(db: Session, producto_id: int, producto_data: dict):
@@ -63,7 +71,14 @@ def actualizar_producto(db: Session, producto_id: int, producto_data: dict):
     prod.imagenes = ",".join(producto_data.get("imagenes", []))
     db.commit()  # Guarda los cambios
     db.refresh(prod)  # Actualiza la instancia
-    return prod  # Devuelve el producto actualizado
+    imagenes = [img for img in prod.imagenes.split(",") if img.strip()]
+    return {
+        "id": prod.id,
+        "nombre": prod.nombre,
+        "descripcion": prod.descripcion,
+        "precio": prod.precio,
+        "imagenes": imagenes
+    }
 
 # 5. Eliminar un producto
 def eliminar_producto(db: Session, producto_id: int):
