@@ -192,13 +192,27 @@ firebase deploy
 
 
 ------------------------------------------------------------------
+se agrega 
+  "proxy": "http://localhost:8000"
 
+en package.json del front
 
 
 ------------------------------------------------------------------
+comandos:
 
+npm start -> compila de manera local solo la parte de react, no se usaria mas
+firebase serve ->compila de manera local solo la parte de react pero usando firebase
+npm run buil -> compila todo lo aplicado de manera local para deployarlo en prod
+firebase deploy -> sube los cambios a produccion
 
+despues de hacer cambios y mostrarlo en local hay que hacer:
+npm run buil
+firebase serve
 
+despues de hacer cambios y mostrarlo en PROduccion hay que hacer:
+npm run buil
+firebase deploy
 
 ------------------------------------------------------------------
 

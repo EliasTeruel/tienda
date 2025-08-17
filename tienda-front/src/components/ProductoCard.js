@@ -61,7 +61,7 @@ const ProductoCard = () => {
         <input type="number" placeholder="Precio" value={precio} onChange={e => setPrecio(e.target.value)} required /><br />
         <label>Imagen 1:</label>
         <input type="file" accept="image/*" onChange={e => handleImagenChange(e, 0)} /><br />
-        <label>Imagen 2:</label>
+        <label>Imagen 22:</label>
         <input type="file" accept="image/*" onChange={e => handleImagenChange(e, 1)} /><br />
         <button type="submit" disabled={urlsImagenes.length < 2}>Crear Producto</button>
       </form>
