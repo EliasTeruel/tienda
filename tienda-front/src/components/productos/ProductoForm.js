@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { crearProducto, subirImagen, eliminarImagen } from "../api/productosApi";
+import { crearProducto, subirImagen, eliminarImagen } from "../../api/productosApi";
 
 const ProductoForm = ({ onProductoCreado }) => {
   const [nombre, setNombre] = useState("");

@@ -50,6 +50,159 @@ source env/bin/activate  # Windows: .\env\Scripts\activate
 pip install fastapi uvicorn python-dotenv psycopg2-binary
 
 
+
+
+
+
+
+
+🚀 Backend (FastAPI)
+
+Tu estructura ya está bien orientada, pero con lo que vas a agregar yo haría esto:
+
+fastapi_tienda/
+│
+├── app/
+│   ├── main.py                     # Punto de entrada
+│   ├── __init__.py
+│   ├── config.py                   # Variables de entorno (DB, Cloudinary, etc.)
+│   ├── database.py                 # Conexión DB
+│   ├── models/                     # Modelos de base de datos (SQLAlchemy, Pydantic)
+│   │   ├── __init__.py
+│   │   ├── user_model.py
+│   │   ├── product_model.py
+│   │   └── order_model.py
+│   ├── schemas/                    # Esquemas Pydantic (separados de modelos DB)
+│   │   ├── user_schema.py
+│   │   ├── product_schema.py
+│   │   └── order_schema.py
+│   ├── crud/                       # Operaciones de negocio (interacción DB)
+│   │   ├── user_crud.py
+│   │   ├── product_crud.py
+│   │   └── order_crud.py
+│   ├── routes/                     # Endpoints agrupados
+│   │   ├── auth.py
+│   │   ├── users.py
+│   │   ├── products.py
+│   │   └── orders.py
+│   ├── services/                   # Servicios externos
+│   │   ├── cloudinary_service.py
+│   │   ├── mercado_pago_service.py
+│   │   └── correo_argentino_service.py
+│   └── utils/                      # Utilidades (helpers, middlewares, etc.)
+│       ├── security.py             # JWT, hashing
+│       ├── pagination.py
+│       └── validators.py
+│
+├── .env
+├── requirements.txt
+└── README.md
+
+
+🔑 Buenas prácticas:
+
+Separar modelos de schemas → SQLAlchemy para DB y Pydantic para validación.
+
+Rutas pequeñas y agrupadas por entidad (auth, users, products).
+
+Servicios externos separados (MercadoPago, Correo Argentino, Cloudinary).
+
+Utils/helpers para seguridad, validaciones, etc.
+
+Middlewares (ejemplo: logs, rate limiting, CORS) en main.py.
+
+🎨 Frontend (React)
+
+Lo que tenés está bien para empezar, pero cuando agregues login, roles y carrito, conviene escalar así:
+
+tienda-front/
+│
+├── src/
+│   ├── api/                          # Conexión con backend
+│   │   ├── authApi.js
+│   │   ├── productosApi.js
+│   │   ├── carritoApi.js
+│   │   └── usuariosApi.js
+│   ├── assets/                       # Imágenes, íconos, fuentes
+│   ├── components/                   # Componentes reutilizables
+│   │   ├── ui/                       # Botones, modales, inputs, etc.
+│   │   ├── layout/                   # Navbar, Sidebar, Footer
+│   │   ├── productos/
+│   │   │   ├── ProductoCard.js
+│   │   │   └── ProductoForm.js
+│   │   └── carrito/
+│   │       ├── CarritoItem.js
+│   │       └── CarritoResumen.js
+│   ├── context/                      # Context API (auth, carrito, theme)
+│   │   ├── AuthContext.js
+│   │   └── CarritoContext.js
+│   ├── hooks/                        # Custom hooks (useAuth, useCarrito)
+│   │   ├── useAuth.js
+│   │   └── useCarrito.js
+│   ├── pages/                        # Páginas completas
+│   │   ├── HomePage.js
+│   │   ├── LoginPage.js
+│   │   ├── ProductosPage.js
+│   │   ├── CarritoPage.js
+│   │   ├── PerfilPage.js
+│   │   └── AdminPage.js
+│   ├── routes/                       # Rutas protegidas y públicas
+│   │   ├── AppRouter.js
+│   │   ├── PrivateRoute.js
+│   │   └── AdminRoute.js
+│   ├── styles/                       # CSS modular o SASS
+│   │   ├── globals.css
+│   │   └── variables.css
+│   ├── utils/                        # Helpers frontend (format price, fecha)
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
+│
+├── public/
+└── package.json
+
+
+🔑 Buenas prácticas:
+
+Separar lógica de presentación:
+
+pages/ → vistas grandes (Home, Login, Productos).
+
+components/ → piezas reutilizables.
+
+api/ → llamadas HTTP.
+
+context/ → estado global (auth, carrito).
+
+CSS modularizado o Tailwind en lugar de tener todo en un index.css.
+
+Rutas protegidas: PrivateRoute para usuarios logueados y AdminRoute para admins.
+
+Hooks personalizados para evitar repetir lógica (useAuth, useCarrito).
+
+Variables globales en styles/variables.css para colores, tipografía.
+
+📡 Interacción con APIs externas
+
+MercadoPago:
+
+Backend: genera las preferencias de pago (mercado_pago_service.py).
+
+Frontend: recibe la URL o init_point y redirige al checkout.
+
+Correo Argentino:
+
+Backend: consulta APIs de envíos y calcula costos.
+
+Frontend: usuario elige dirección y ve tarifas dinámicas.
+
+
+
+
+
+
+
+
 nueva estructura:
 fastapi_tienda/
 │
@@ -71,6 +224,29 @@ fastapi_tienda/
 ├── .env                      # Variables de entorno
 ├── requirements.txt          # Dependencias del proyecto
 └── README.md
+
+
+
+
+tienda-front/
+│
+├── src/
+│   ├── api/
+│   │   ├── ProductosApi.js
+│   ├── components/
+│   |   ├── ProductoCard.js
+│   |   ├── ProductoForm.js
+│   └── pages/
+│       ├── ProductosPage.js
+|
+├── public/
+├── build/
+│
+├── app.css
+├── app.js
+├── app.test.js
+├── index.css
+├── index.js
 
 
 Guardar dependencias:

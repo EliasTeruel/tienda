@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"; // Importa React y hooks
 import { getProductos } from "../api/productosApi"; // Función para obtener productos desde la API
-import ProductoCard from "../components/ProductoCard"; // Componente para mostrar cada producto
-import ProductoForm from "../components/ProductoForm"; // Componente para crear productos
+import ProductoCard from "../components/productos/ProductoCard"; // Componente para mostrar cada producto
+import ProductoForm from "../components/productos/ProductoForm"; // Componente para crear productos
 
 const ProductosPage = () => {
   const [productos, setProductos] = useState([]); // Estado para la lista de productos
