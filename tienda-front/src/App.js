@@ -1,11 +1,11 @@
 import React from "react";
-import ProductoCard from "./components/ProductoCard";
+import ProductosPage from "./pages/ProductosPage";
 
 function App() {
   return (
     <div>
       <h1>CRUD Productoss</h1>
-      <ProductoCard />
+      <ProductosPage />
     </div>
   );
 }

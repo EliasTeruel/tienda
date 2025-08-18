@@ -1,47 +1,52 @@
-[debug] [2025-08-17T03:34:15.900Z] ----------------------------------------------------------------------
-[debug] [2025-08-17T03:34:15.902Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2025-08-17T03:34:15.902Z] CLI Version:   14.12.1
-[debug] [2025-08-17T03:34:15.903Z] Platform:      win32
-[debug] [2025-08-17T03:34:15.903Z] Node Version:  v20.17.0
-[debug] [2025-08-17T03:34:15.903Z] Time:          Sun Aug 17 2025 00:34:15 GMT-0300 (hora de la Guayana Francesa)
-[debug] [2025-08-17T03:34:15.903Z] ----------------------------------------------------------------------
+[debug] [2025-08-18T00:08:01.946Z] ----------------------------------------------------------------------
+[debug] [2025-08-18T00:08:01.949Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-08-18T00:08:01.949Z] CLI Version:   14.12.1
+[debug] [2025-08-18T00:08:01.949Z] Platform:      win32
+[debug] [2025-08-18T00:08:01.949Z] Node Version:  v20.17.0
+[debug] [2025-08-18T00:08:01.949Z] Time:          Sun Aug 17 2025 21:08:01 GMT-0300 (hora de la Guayana Francesa)
+[debug] [2025-08-18T00:08:01.950Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2025-08-17T03:34:16.162Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2025-08-17T03:34:16.162Z] > authorizing via signed-in user (eliasteruel96@gmail.com)
-[debug] [2025-08-17T03:34:16.162Z] [iam] checking project fimuvintage for permissions ["firebase.projects.get"]
-[debug] [2025-08-17T03:34:16.163Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:16.163Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:16.164Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions [none]
-[debug] [2025-08-17T03:34:16.164Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions x-goog-quota-user=projects/fimuvintage
-[debug] [2025-08-17T03:34:16.164Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions {"permissions":["firebase.projects.get"]}
-[debug] [2025-08-17T03:34:17.117Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions 200
-[debug] [2025-08-17T03:34:17.117Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions {"permissions":["firebase.projects.get"]}
-[debug] [2025-08-17T03:34:17.119Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:17.119Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:17.119Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage [none]
-[debug] [2025-08-17T03:34:17.377Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage 200
-[debug] [2025-08-17T03:34:17.377Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage {"projectNumber":"969473356973","projectId":"fimuvintage","lifecycleState":"ACTIVE","name":"fimuvintage","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-08-15T13:02:39.654877Z"}
+[debug] [2025-08-18T00:08:02.181Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-18T00:08:02.182Z] > authorizing via signed-in user (eliasteruel96@gmail.com)
+[debug] [2025-08-18T00:08:02.182Z] [iam] checking project fimuvintage for permissions ["firebase.projects.get"]
+[debug] [2025-08-18T00:08:02.183Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:02.183Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:02.184Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions [none]
+[debug] [2025-08-18T00:08:02.184Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions x-goog-quota-user=projects/fimuvintage
+[debug] [2025-08-18T00:08:02.184Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-08-18T00:08:05.036Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions 200
+[debug] [2025-08-18T00:08:05.036Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-08-18T00:08:05.037Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:05.037Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:05.037Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage [none]
+[debug] [2025-08-18T00:08:05.417Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage 200
+[debug] [2025-08-18T00:08:05.418Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/fimuvintage {"projectNumber":"969473356973","projectId":"fimuvintage","lifecycleState":"ACTIVE","name":"fimuvintage","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-08-15T13:02:39.654877Z"}
 [info] 
 [info] === Serving from 'C:\Users\Eli\OneDrive\Escritorio\new-tienda\tienda\tienda-front'...
 [info] 
-[debug] [2025-08-17T03:34:17.381Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:17.381Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:17.382Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites 
-[debug] [2025-08-17T03:34:18.567Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites 200
-[debug] [2025-08-17T03:34:18.567Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites {"sites":[{"name":"projects/fimuvintage/sites/fimuvintage","defaultUrl":"https://fimuvintage.web.app","appId":"1:969473356973:web:c413693b5e8f828a078224","type":"DEFAULT_SITE"}]}
-[debug] [2025-08-17T03:34:18.568Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:18.568Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:18.568Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config [none]
-[debug] [2025-08-17T03:34:19.325Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config 200
-[debug] [2025-08-17T03:34:19.325Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config {"projectId":"fimuvintage","appId":"1:969473356973:web:c413693b5e8f828a078224","storageBucket":"fimuvintage.firebasestorage.app","apiKey":"AIzaSyDxTFDygZ5hefZRC-8d1z4RFtVsxN2_pyk","authDomain":"fimuvintage.firebaseapp.com","messagingSenderId":"969473356973","measurementId":"G-V9TH7S0TLD"}
-[debug] [2025-08-17T03:34:19.335Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:19.335Z] Checked if tokens are valid: true, expires at: 1755404733726
-[debug] [2025-08-17T03:34:19.336Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage [none]
-[debug] [2025-08-17T03:34:19.657Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage 200
-[debug] [2025-08-17T03:34:19.658Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage {"projectId":"fimuvintage","projectNumber":"969473356973","displayName":"fimuvintage","name":"projects/fimuvintage","resources":{"hostingSite":"fimuvintage"},"state":"ACTIVE","etag":"1_e61e7a31-0515-4b9c-9d15-43e4a2fcbcfd"}
-[info] i  hosting[fimuvintage]: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[debug] [2025-08-18T00:08:05.421Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:05.421Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:05.421Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites 
+[debug] [2025-08-18T00:08:07.599Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites 200
+[debug] [2025-08-18T00:08:07.600Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/fimuvintage/sites {"sites":[{"name":"projects/fimuvintage/sites/fimuvintage","defaultUrl":"https://fimuvintage.web.app","appId":"1:969473356973:web:c413693b5e8f828a078224","type":"DEFAULT_SITE"}]}
+[debug] [2025-08-18T00:08:07.600Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:07.600Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:07.600Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config [none]
+[debug] [2025-08-18T00:08:09.419Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config 200
+[debug] [2025-08-18T00:08:09.419Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage/webApps/1:969473356973:web:c413693b5e8f828a078224/config {"projectId":"fimuvintage","appId":"1:969473356973:web:c413693b5e8f828a078224","storageBucket":"fimuvintage.firebasestorage.app","apiKey":"AIzaSyDxTFDygZ5hefZRC-8d1z4RFtVsxN2_pyk","authDomain":"fimuvintage.firebaseapp.com","messagingSenderId":"969473356973","measurementId":"G-V9TH7S0TLD"}
+[debug] [2025-08-18T00:08:09.427Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:09.427Z] Checked if tokens are valid: true, expires at: 1755477708182
+[debug] [2025-08-18T00:08:09.427Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage [none]
+[debug] [2025-08-18T00:08:09.774Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage 200
+[debug] [2025-08-18T00:08:09.774Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fimuvintage {"projectId":"fimuvintage","projectNumber":"969473356973","displayName":"fimuvintage","name":"projects/fimuvintage","resources":{"hostingSite":"fimuvintage"},"state":"ACTIVE","etag":"1_e61e7a31-0515-4b9c-9d15-43e4a2fcbcfd"}
+[debug] [2025-08-18T00:08:09.775Z] Specified "public" directory "/build" does not exist; Deploy to Hosting site "fimuvintage" may fail or be empty.
+[info] i  hosting[fimuvintage]: Serving hosting files from: /build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1m/build\u001b[22m"}}
 [info] +  hosting[fimuvintage]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
-[info] i  hosting: ::1 - - [17/Aug/2025:03:34:19 +0000] "GET / HTTP/1.1" 200 210 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [17/Aug/2025:03:34:19 +0000] \"GET / HTTP/1.1\" 200 210 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
-[info] i  hosting: ::1 - - [17/Aug/2025:03:34:19 +0000] "GET /static/css/main.e6c13ad2.css HTTP/1.1" 200 337 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [17/Aug/2025:03:34:19 +0000] \"GET /static/css/main.e6c13ad2.css HTTP/1.1\" 200 337 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
-[info] i  hosting: ::1 - - [17/Aug/2025:03:34:20 +0000] "GET /static/js/main.aef0cbde.js HTTP/1.1" 200 210 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [17/Aug/2025:03:34:20 +0000] \"GET /static/js/main.aef0cbde.js HTTP/1.1\" 200 210 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
-[info] i  hosting: ::1 - - [17/Aug/2025:03:34:20 +0000] "GET /static/js/main.9ad0e26c.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [17/Aug/2025:03:34:20 +0000] \"GET /static/js/main.9ad0e26c.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:15 +0000] "GET / HTTP/1.1" 200 210 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:15 +0000] \"GET / HTTP/1.1\" 200 210 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:15 +0000] "GET /static/js/main.a5932ea0.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:15 +0000] \"GET /static/js/main.a5932ea0.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:16 +0000] "GET /static/css/main.e6c13ad2.css HTTP/1.1" 200 337 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:16 +0000] \"GET /static/css/main.e6c13ad2.css HTTP/1.1\" 200 337 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:16 +0000] "GET /static/js/main.4d723b3e.js HTTP/1.1" 200 210 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:16 +0000] \"GET /static/js/main.4d723b3e.js HTTP/1.1\" 200 210 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:25 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:25 +0000] \"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1\" 404 187 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:25 +0000] "GET /static/css/main.e6c13ad2.css HTTP/1.1" 200 337 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:25 +0000] \"GET /static/css/main.e6c13ad2.css HTTP/1.1\" 200 337 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:26 +0000] "GET /static/css/main.e6c13ad2.css.map HTTP/1.1" 200 584 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:26 +0000] \"GET /static/css/main.e6c13ad2.css.map HTTP/1.1\" 200 584 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [18/Aug/2025:00:08:26 +0000] "GET /static/js/main.a5932ea0.js.map HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [18/Aug/2025:00:08:26 +0000] \"GET /static/js/main.a5932ea0.js.map HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36\""}}
