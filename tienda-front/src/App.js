@@ -1,11 +1,10 @@
-import React from "react";
-import ProductosPage from "./pages/ProductosPage";
+// App.jsx
+import AppRoutes from "./routes/rutas";
 
 function App() {
   return (
     <div>
-      <h1>CRUD Productoss</h1>
-      <ProductosPage />
+      <AppRoutes />
     </div>
   );
 }

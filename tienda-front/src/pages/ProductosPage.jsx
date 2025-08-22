@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"; // Importa React y hooks
-import { getProductos } from "../api/productosApi"; // Función para obtener productos desde la API
+// import { getProductos } from "../api/ProductosApi"; // Función para obtener productos desde la API
+import { getProductos } from "../api/productosApi";
 import ProductoCard from "../components/productos/ProductoCard"; // Componente para mostrar cada producto
 import ProductoForm from "../components/productos/ProductoForm"; // Componente para crear productos
-
+import { Link } from "react-router-dom";
 const ProductosPage = () => {
   const [productos, setProductos] = useState([]); // Estado para la lista de productos
 
@@ -14,7 +15,7 @@ const ProductosPage = () => {
   const fetchProductos = async () => {
     try {
       const data = await getProductos(); // Llama a la función que hace el fetch
-      console.log("Productos obtenidos:", data); // Muestra los productos en la consola
+      // console.log("Productos obtenidos:", data); // Muestra los productos en la consola
       setProductos(data); // Actualiza el estado con los productos recibidos
     } catch (error) {
       console.error("Error al obtener productos:", error); // Muestra el error si falla la petición
@@ -29,7 +30,18 @@ const ProductosPage = () => {
 
   return (
     <div style={{ padding: 20 }}>
+      <div className="hidden lg:flex justify-end gap-3 order-3">
+        <Link
+          // onClick={() => handlerRedes(i)}
+          to="/"
+          className={`bg-blue-500 text-white px-3 py-1 font-medium rounded-sm`}
+        >
+          Salir
+        </Link>
+      </div>
       <h2>Gestión de Productos</h2>
+
+
       {/* Formulario para crear productos, le pasa la función para agregar al estado */}
       <ProductoForm onProductoCreado={handleNuevoProducto} />
       <div style={{ display: "flex", flexWrap: "wrap" }}>

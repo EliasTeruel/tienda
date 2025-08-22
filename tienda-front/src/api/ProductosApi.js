@@ -5,7 +5,7 @@ const API_URL = "http://localhost:8000";
 // Obtener todos los productos
 export const getProductos = async () => {
   const res = await axios.get(`${API_URL}/productos`);
-  console.log("Productos obtenidos API:", res.data);
+  // console.log("Productos obtenidos API:", res.data);
   return res.data;
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 const ProductoCard = ({ producto }) => {
-    console.log(producto);
+    // console.log(producto);
   return (
     <div style={{ border: "1px solid #ccc", padding: 20, width: 250, margin: 10 }}>
       <h3>{producto.nombre}</h3>
