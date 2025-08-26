@@ -17,7 +17,11 @@ code {
 }
 
 .btn-card {
-  @apply bg-black rounded-sm px-5 py-1 w-full flex justify-center;
+  @apply bg-black/90 rounded-md px-3 py-1 w-full flex justify-center;
+}
+.hover-like {
+
+  @apply hover:text-red-500 hover:border-black/90 hover:bg-black/90 
 }
 
 .swiper .swiper-pagination-bullet {
@@ -25,4 +29,28 @@ code {
 }
 .swiper .swiper-pagination-bullet-active {
   @apply bg-blue-400;
+}
+
+
+/* Contenedor con scroll */
+.scroll-container::-webkit-scrollbar {
+  width: 8px;  /* grosor vertical */
+  height: 8px; /* grosor horizontal */
+}
+
+/* Fondo de la barra */
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* Parte que se mueve */
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Hover sobre la barra */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

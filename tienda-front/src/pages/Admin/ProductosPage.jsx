@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"; // Importa React y hooks
-// import { getProductos } from "../api/ProductosApi"; // Función para obtener productos desde la API
-import { getProductos } from "../api/productosApi";
-import ProductoCard from "../components/productos/ProductoCard"; // Componente para mostrar cada producto
-import ProductoForm from "../components/productos/ProductoForm"; // Componente para crear productos
-import { Link } from "react-router-dom";
+import { getProductos } from "../../api/productosApi";
+import Acciones from "../../components/Admin/Acciones";
+import { Outlet } from "react-router-dom";
+import VerProdcuto from "../../components/Admin/VerProducto";
+
 const ProductosPage = () => {
   const [productos, setProductos] = useState([]); // Estado para la lista de productos
 
@@ -29,32 +29,35 @@ const ProductosPage = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <div className="hidden lg:flex justify-end gap-3 order-3">
+    <div className="flex flex-col h-full min-h-0  gap-5">
+
+      {/* Formulario para crear productos, le pasa la función para agregar al estado */}
+      <Acciones titulo={"Lista de productos"}></Acciones>
+      {/* <div className="flex-1 bg-yellow-400">
+        <ProductoForm onProductoCreado={handleNuevoProducto} />
+      </div> */}
+
+      {/* <VerProdcuto></VerProdcuto>9 */}
+      <Outlet></Outlet>
+      {/* <div className="bg-red-500 flex justify-end gap-3 order-3 h-8">
         <Link
-          // onClick={() => handlerRedes(i)}
           to="/"
           className={`bg-blue-500 text-white px-3 py-1 font-medium rounded-sm`}
         >
           Salir
         </Link>
-      </div>
-      <h2>Gestión de Productos</h2>
-
-
-      {/* Formulario para crear productos, le pasa la función para agregar al estado */}
-      <ProductoForm onProductoCreado={handleNuevoProducto} />
+      </div> */}
+      {/* <Tablero></Tablero> */}
+      {/*       
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {/* Muestra cada producto usando ProductoCard */}
         {productos.map((p, idx) => {
-          // Depura cada producto antes de renderizar la card
           if (!p || !p.id) {
             console.warn("Producto inválido:", p);
             return null;
           }
           return <ProductoCard key={p.id} producto={p} />;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };

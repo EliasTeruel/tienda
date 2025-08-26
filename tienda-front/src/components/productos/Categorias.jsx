@@ -13,7 +13,7 @@ const Categorias = () => {
       >
         {lista.map((e, i) => (
           <SwiperSlide key={i} className="!w-auto"> 
-            <button className="bg-black rounded-sm text-white text-sm px-3">
+            <button className="bg-black rounded-md text-white text-sm px-3 pb-[2px]">
               {e}
             </button>
           </SwiperSlide>

@@ -10,7 +10,7 @@ const Navbar = () => {
     { texto: "inicio", ruta: "/", icono: "ic:round-home" },
     { texto: "Gestion Productos", ruta: "/productos", icono: "mdi:hanger" }, // ícono de ropa en móvil
     { texto: "entregas", ruta: "/auth", icono: "mdi:truck-delivery" },
-    { texto: "pagos", ruta: "metodos", icono: "mdi:credit-card-outline" },
+    { texto: "Admin", ruta: "/admin", icono: "mdi:credit-card-outline" },
     // { texto: "sobre mi", ruta: "sobremi", icono: "mdi:account-circle-outline" }
   ];
 
