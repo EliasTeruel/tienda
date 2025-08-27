@@ -1,6 +1,6 @@
 // import AppRoutes from "../routes/rutas";
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/navbar/Navbar";
+import Navbar from "../components/layout/Navbar";
 import Tablero from "../components/productos/Tablero";
 
 const Inicio = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProductos } from "../../api/productosApi";
 import Card from "./Card";
-import Categorias from "./Categorias";
+import Categorias from "../ui/Categorias";
 
 
 const Tablero = () => {

@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import Menu from "../../components/Admin/Menu";
-import Encabezado from "../../components/Admin/encabezado";
-import { Link } from "react-router-dom";
-import BotonSalir from "../../components/Admin/BotonSalir";
+import Menu from "../../components/layout/Menu";
+import Encabezado from "../../components/layout/encabezado";
+import BotonSalir from "../../components/ui/BotonSalir";
 
 const Admin = () => {
   const [menuOpen, setMenuOpen] = useState(false);

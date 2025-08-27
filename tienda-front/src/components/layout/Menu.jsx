@@ -6,7 +6,7 @@ const Menu = ({ menuOpen }) => {
     { nombre: "Productos", icono: "bx:box", ruta: "productos" },
     { nombre: "Ventas", icono: "carbon:sales-ops", ruta: "ventas" },
     { nombre: "Dashboard", icono: "fluent-mdl2:b-i-dashboard", ruta: "dashboard" },
-    { nombre: "Configuración", icono: "ion:settings-outline", ruta: "configuracion" },
+    { nombre: "Configuración", icono: "ion:settings-outline", ruta: "configuracion " },
   ];
 
   return (

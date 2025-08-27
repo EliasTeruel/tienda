@@ -23,13 +23,12 @@ const AppRoutes = () => {
 
       {/* ruta padre */}
       <Route path="/admin" element={<Admin />}>
-        {/* redirige a /admin/productos */}
-        <Route index element={<Navigate to="productos" replace />} />
-
+        {/* Al entrar a /admin redirige a /admin/productos/lista */}
+        <Route index element={<Navigate to="productos/lista" replace />} />
         <Route path="productos" element={<ProductosPage />}>
           <Route index element={<ListaProductos />} />   {/* /admin/productos */}
           <Route path="lista" element={<ListaProductos />}>
-            <Route path="ver" element={<VerProducto/>}/> 
+            <Route path="ver" element={<VerProducto />} />
           </Route>
           <Route path="agregar" element={<AgregarProducto />} />
         </Route>
