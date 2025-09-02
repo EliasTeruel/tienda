@@ -1,0 +1,792 @@
+Frontend (React) → Firebase Hosting + Firebase Auth
+                   ↓
+Backend (FastAPI - Python) → Railway o Render
+                             ↓
+PostgreSQL (Neon.tech)
+                             ↓
+Imágenes (Cloudinary)
+
+------------------------------------------------------------------
+Para clonar el repositorio y que funcione en otra computadora, sigue estos pasos:
+
+Clonar el repositorio: Abre la terminal y ejecuta:
+
+git clone <URL_DEL_REPOSITORIO>
+cd <nombre_del_repositorio>
+
+Crear y activar un entorno virtual (recomendado):
+
+python -m venv venv
+venv\Scripts\activate
+
+Instalar las dependencias: Si tienes un archivo requirements.txt, ejecuta:
+
+pip install -r requirements.txt
+
+Configurar variables de entorno:
+
+Renombra .env.example a .env. (NO HACE FALTA ESTA PARTE)
+Completa los valores necesarios (Cloudinary, DATABASE_URL, etc.).
+Inicializar la base de datos: Ejecuta el script de inicialización:
+
+python tienda/fastapi_tienda/app/scripts/init_db.py (NO HACE FALTA ESTA PARTE)
+
+Ejecutar el servidor FastAPI:
+
+uvicorn app.main:app --reload
+
+
+Notas:
+
+Instala Python y pip si no los tienes.
+Instala uvicorn si no está: pip install uvicorn.
+Instala las librerías necesarias (FastAPI, SQLAlchemy, cloudinary, etc.).
+
+------------------------------------------------------------------
+1. Configurar tu Backend (FastAPI)
+
+python -m venv env
+source env/bin/activate  # Windows: .\env\Scripts\activate
+pip install fastapi uvicorn python-dotenv psycopg2-binary
+pip install firebase-admin
+pip install email-validator
+
+
+🚀 Backend (FastAPI)
+
+Tu estructura ya está bien orientada, pero con lo que vas a agregar yo haría esto:
+
+fastapi_tienda/
+│
+├── app/
+│   ├── main.py                     # Punto de entrada
+│   ├── __init__.py
+│   ├── config.py                   # Variables de entorno (DB, Cloudinary, etc.)
+│   ├── database.py                 # Conexión DB
+│   ├── models/                     # Modelos de base de datos (SQLAlchemy, Pydantic)
+│   │   ├── __init__.py
+│   │   ├── user_model.py
+│   │   ├── base.py
+│   │   ├── product_model.py
+│   │   └── order_model.py
+│   ├── schemas/                    # Esquemas Pydantic (separados de modelos DB)
+│   │   ├── user_schema.py
+│   │   ├── product_schema.py
+│   │   └── order_schema.py
+│   ├── crud/                       # Operaciones de negocio (interacción DB)
+│   │   ├── user_crud.py
+│   │   ├── product_crud.py
+│   │   └── order_crud.py
+│   ├── routes/                     # Endpoints agrupados
+│   │   ├── auth.py
+│   │   ├── users.py
+│   │   ├── productos.py
+│   │   ├── imagenes.py
+│   │   └── orders.py
+│   ├── services/                   # Servicios externos
+│   │   ├── cloudinary_service.py
+│   │   ├── mercado_pago_service.py
+│   │   └── correo_argentino_service.py
+│   └── utils/                      # Utilidades (helpers, middlewares, etc.)
+│       ├── security.py             # JWT, hashing
+│       ├── pagination.py
+│       └── validators.py
+│
+├── .env
+├── requirements.txt
+└── README.md
+
+
+🔑 Buenas prácticas:
+
+Separar modelos de schemas → SQLAlchemy para DB y Pydantic para validación.
+
+Rutas pequeñas y agrupadas por entidad (auth, users, products).
+
+Servicios externos separados (MercadoPago, Correo Argentino, Cloudinary).
+
+Utils/helpers para seguridad, validaciones, etc.
+
+Middlewares (ejemplo: logs, rate limiting, CORS) en main.py.
+
+
+
+1️⃣ app/main.py
+
+Propósito: Punto de entrada de tu aplicación.
+
+Qué va aquí:
+
+Crear la instancia de FastAPI.
+
+Configurar middlewares (CORS, autenticación global si aplica).
+
+Registrar routers (app.include_router(...)).
+
+Rutas raíz o endpoints simples de prueba.
+
+Interacción: Llama a los routers, que a su vez llaman a los CRUD o servicios.
+
+2️⃣ app/config.py
+
+Propósito: Configuración central de variables (DB, API keys, servicios externos).
+
+Qué va aquí:
+
+Leer variables de entorno (os.getenv o dotenv).
+
+Configuración de servicios externos (Cloudinary, MercadoPago, correo, etc.).
+
+Constantes globales que se usan en varias partes.
+
+Interacción: Otros archivos importan estas configuraciones, por ejemplo:
+
+database.py usa la URL de DB.
+
+cloudinary_service.py usa las keys de Cloudinary.
+
+3️⃣ app/database.py
+
+Propósito: Conexión y gestión de la base de datos.
+
+Qué va aquí:
+
+Crear engine y SessionLocal de SQLAlchemy.
+
+Configurar parámetros especiales según el tipo de base.
+
+Interacción:
+
+Los CRUD usan SessionLocal() para abrir sesiones.
+
+Los routers usan dependencias de sesión (Depends(get_db)).
+
+4️⃣ app/models/ (Modelos SQLAlchemy)
+
+Propósito: Representación de tablas de la base de datos.
+
+Qué va aquí:
+
+Cada archivo representa una entidad:
+
+user_model.py: tabla users.
+
+product_model.py: tabla productos.
+
+order_model.py: tabla orders.
+
+base.py: contiene Base = declarative_base().
+
+Interacción:
+
+Los CRUD importan los modelos para consultar o modificar la base.
+
+No deberían contener lógica de negocio compleja, solo estructura de la DB.
+
+5️⃣ app/schemas/ (Modelos Pydantic)
+
+Propósito: Validación de datos y serialización para FastAPI.
+
+Qué va aquí:
+
+Esquemas de entrada (Create, Update) y salida (Read).
+
+Separados por entidad (user_schema.py, product_schema.py, order_schema.py).
+
+Configurar orm_mode=True para mapear objetos SQLAlchemy a JSON.
+
+Interacción:
+
+Routers reciben y devuelven objetos de estos schemas.
+
+CRUD recibe objetos Pydantic y los transforma en modelos DB.
+
+6️⃣ app/crud/ (Lógica de negocio)
+
+Propósito: Operaciones de base de datos.
+
+Qué va aquí:
+
+Funciones que hacen SELECT, INSERT, UPDATE, DELETE.
+
+Transformaciones de datos antes o después de la DB.
+
+Por entidad (user_crud.py, product_crud.py, order_crud.py).
+
+Interacción:
+
+Routers llaman a estas funciones.
+
+CRUD usa los modelos (models) y la sesión de DB (Session).
+
+No maneja rutas ni request directamente.
+
+7️⃣ app/routes/ (Endpoints)
+
+Propósito: Exponer tu API.
+
+Qué va aquí:
+
+Agrupación de rutas por entidad (users.py, productos.py, orders.py).
+
+Manejo de dependencias (Depends(get_db)).
+
+Manejo de errores (HTTPException) y validaciones.
+
+Interacción:
+
+Llama a CRUD para obtener datos de la DB.
+
+Devuelve respuestas en formato Pydantic.
+
+Puede llamar a servicios externos si es necesario (Cloudinary, pagos).
+
+8️⃣ app/services/ (Servicios externos)
+
+Propósito: Integraciones con APIs externas.
+
+Qué va aquí:
+
+Funciones para subir imágenes, procesar pagos, enviar mails.
+
+Evitar lógica de negocio en los routers; solo encapsular llamadas externas.
+
+Interacción:
+
+Routers o CRUD llaman a estos servicios.
+
+Ejemplo: imagenes.py llama a cloudinary_service.subir_imagen(...).
+
+9️⃣ app/utils/ (Helpers y utilidades)
+
+Propósito: Funciones generales reutilizables.
+
+Qué va aquí:
+
+security.py: hashing de contraseñas, JWT.
+
+pagination.py: helpers para paginación de resultados.
+
+validators.py: validaciones extra que no son del schema.
+
+Interacción:
+
+Routers, CRUD y servicios pueden usar estas funciones.
+
+🔁 Flujo típico de una petición
+
+Ejemplo: /productos/2:
+
+Cliente hace GET /productos/2.
+
+Router productos.py recibe la petición.
+
+Usa dependencia de DB (get_db) para abrir sesión.
+
+Llama a CRUD: product_crud.obtener_producto(db, 2).
+
+CRUD consulta la DB usando SQLAlchemy models.
+
+Retorna un objeto SQLAlchemy al router.
+
+Router lo convierte a Pydantic schema (response_model=Producto).
+
+FastAPI lo serializa a JSON y lo envía al cliente.
+
+
+
+
+
+
+
+🎨 Frontend (React)
+
+Lo que tenés está bien para empezar, pero cuando agregues login, roles y carrito, conviene escalar así:
+
+tienda-front/
+│
+├── src/
+│   ├── api/                          # Conexión con backend
+│   │   ├── authApi.js
+│   │   ├── productosApi.js
+│   │   ├── carritoApi.js
+│   │   └── usuariosApi.js
+│   ├── assets/                       # Imágenes, íconos, fuentes
+│   ├── components/                   # Componentes reutilizables
+│   │   ├── ui/                       # Botones, modales, inputs, etc.
+│   │   ├── layout/                   # Navbar, Sidebar, Footer
+│   │   ├── productos/
+│   │   │   ├── ProductoCard.js
+│   │   │   └── ProductoForm.js
+│   │   └── carrito/
+│   │       ├── CarritoItem.js
+│   │       └── CarritoResumen.js
+│   ├── context/                      # Context API (auth, carrito, theme)
+│   │   ├── AuthContext.js
+│   │   └── CarritoContext.js
+│   ├── hooks/                        # Custom hooks (useAuth, useCarrito)
+│   │   ├── useAuth.js
+│   │   └── useCarrito.js
+│   ├── pages/                        # Páginas completas
+│   │   ├── HomePage.js
+│   │   ├── LoginPage.js
+│   │   ├── ProductosPage.js
+│   │   ├── CarritoPage.js
+│   │   ├── PerfilPage.js
+│   │   └── AdminPage.js
+│   ├── routes/                       # Rutas protegidas y públicas
+│   │   ├── AppRouter.js
+│   │   ├── PrivateRoute.js
+│   │   └── AdminRoute.js
+│   ├── styles/                       # CSS modular o SASS
+│   │   ├── globals.css
+│   │   └── variables.css
+│   ├── utils/                        # Helpers frontend (format price, fecha)
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
+│
+├── public/
+└── package.json
+
+
+🔑 Buenas prácticas:
+
+Separar lógica de presentación:
+
+pages/ → vistas grandes (Home, Login, Productos).
+
+components/ → piezas reutilizables.
+
+api/ → llamadas HTTP.
+
+context/ → estado global (auth, carrito).
+
+CSS modularizado o Tailwind en lugar de tener todo en un index.css.
+
+Rutas protegidas: PrivateRoute para usuarios logueados y AdminRoute para admins.
+
+Hooks personalizados para evitar repetir lógica (useAuth, useCarrito).
+
+Variables globales en styles/variables.css para colores, tipografía.
+
+📡 Interacción con APIs externas
+
+MercadoPago:
+
+Backend: genera las preferencias de pago (mercado_pago_service.py).
+
+Frontend: recibe la URL o init_point y redirige al checkout.
+
+Correo Argentino:
+
+Backend: consulta APIs de envíos y calcula costos.
+
+Frontend: usuario elige dirección y ve tarifas dinámicas.
+
+
+Guardar dependencias:
+pip freeze > requirements.txt
+
+------------------------------------------------------------------
+ 2. Subir Backend a Railway
+Railway:
+Crear cuenta: https://railway.app
+
+Nuevo proyecto → “Deploy from GitHub” o “Start from scratch”
+
+Subís el proyecto a GitHub
+
+Railway detecta main.py y requirements.txt automáticamente
+
+Setea variable PORT = 8000 en Railway
+
+🚀 El backend quedará disponible en https://tuapp.up.railway.app
+
+------------------------------------------------------------------
+
+3. Crear base de datos en Neon
+Ir a: https://neon.tech
+
+Crear proyecto → copiar cadena de conexión PostgreSQL
+
+En tu backend, guardar en .env:
+DATABASE_URL=postgresql://usuario:password@host.db.neon.tech:5432/dbname
+
+
+se crea tabla con el script init_db.py que para que funcione se debe instalar:
+
+pip install sqlalchemy psycopg2-binary
+python scripts/init_db.py
+
+Esto:
+
+Crea la tabla productos si no existe.
+
+Inserta dos productos de ejemplo.
+
+
+
+------------------------------------------------------------------
+
+------------------------------------------------------------------
+4. Configurar Cloudinary (para imágenes)
+Ir a: https://cloudinary.com
+
+Crear cuenta y copiar datos del dashboard:
+
+CLOUD_NAME
+
+API_KEY
+
+API_SECRET
+
+Guardar en .env del backend
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_API_KEY=...
+CLOUDINARY_API_SECRET=...
+
+
+------------------------------------------------------------------
+Usás cloudinary SDK en Python:
+
+pip install cloudinary
+
+
+------------------------------------------------------------------
+
+Frontend en React:
+npx create-react-app tienda-front
+cd tienda-front
+npm install firebase axios react-router-dom
+------------------------------------------------------------------
+Configurar Firebase:
+Ir a: https://console.firebase.google.com
+
+Crear proyecto → activar Authentication → elegir “Email/Password” o “Google”
+
+Activar Hosting → te dará un dominio mi-tienda.web.app
+
+npm install -g firebase-tools
+
+Agregar Firebase al React:
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  appId: "...",
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+
+
+------------------------------------------------------------------
+6. Conectar frontend con backend
+Usás axios desde React para llamar a https://tu-backend.up.railway.app/productos
+
+Manejás tokens de login desde Firebase para validar en tu API si querés proteger endpoints
+
+
+------------------------------------------------------------------
+7. Subir el frontend a Firebase Hosting
+
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+# Seleccionás el proyecto y como carpeta `build/`
+npm run build
+firebase deploy
+
+
+------------------------------------------------------------------
+se agrega 
+  "proxy": "http://localhost:8000"
+
+en package.json del front
+
+
+------------------------------------------------------------------
+comandos:
+
+npm start -> compila de manera local solo la parte de react, no se usaria mas
+firebase serve ->compila de manera local solo la parte de react pero usando firebase
+npm run buil -> compila todo lo aplicado de manera local para deployarlo en prod
+firebase deploy -> sube los cambios a produccion
+
+despues de hacer cambios y mostrarlo en local hay que hacer:
+npm run buil
+firebase serve
+
+despues de hacer cambios y mostrarlo en PROduccion hay que hacer:
+npm run buil
+firebase deploy
+
+------------------------------------------------------------------
+Explicacion del funcionamiento de los archivos para react y firebase:
+
+🔹 1. Nivel inicial: Carpeta src/
+
+Acá está tu código fuente, el que vos programás. Ejemplo típico:
+src/
+ ├── index.js        👈 Punto de entrada principal
+ ├── App.js          👈 Componente raíz de tu app
+ ├── App.css         👈 Estilos de App
+ ├── components/     👈 Carpeta con componentes reutilizables
+ └── ...
+
+index.js
+
+Importa React y ReactDOM.
+
+Renderiza <App /> dentro del div id="root" que está en public/index.html.
+
+Ejemplo:
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
+App.js
+
+Es tu primer componente, normalmente el “contenedor” principal.
+
+Desde acá vas importando otros componentes.
+
+Componentes (components/)
+
+Son piezas de UI. Cada uno puede tener su .js (lógica JSX) y .css (estilos).
+
+📌 Hasta acá, nada de esto lo entiende el navegador directamente porque usás JSX (<div>Hola</div>) y módulos ES6 (import ... from ...).
+
+🔹 2. Nivel intermedio: Carpeta public/
+
+Acá está el HTML base que se sirve:
+
+public/
+ ├── index.html      👈 Archivo HTML base
+ ├── favicon.ico
+ └── manifest.json
+
+index.html
+
+Tiene un <div id="root"></div>.
+
+Cuando React arranca (desde src/index.js), inserta ahí toda tu app.
+
+Ejemplo:
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mi App React</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div> <!-- React se engancha acá -->
+  </body>
+</html>
+
+👉 Notá que acá no hay referencia a src/index.js.
+Eso se inyecta automáticamente cuando se hace el build.
+
+🔹 3. El “puente”: npm start y npm run build
+
+npm start: arranca un servidor de desarrollo con Webpack o Vite.
+
+Traduce en tiempo real tu src/ a JS entendible por el navegador.
+
+No genera archivos, todo está en memoria.
+
+npm run build: hace el bundle para producción.
+
+Transforma src/index.js en archivos optimizados (main.js, vendor.js...).
+
+Copia public/index.html a la carpeta build/, pero inyecta los scripts resultantes.
+
+Resultado en build/:
+build/
+ ├── index.html   👈 Copia de public/index.html pero con <script>
+ └── static/
+      ├── js/
+      │   └── main.abcd1234.js   👈 Código de React compilado
+      └── css/
+          └── main.abcd1234.css
+
+Ejemplo de cómo queda el build/index.html:
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mi App React</title>
+    <link href="/static/css/main.abcd1234.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/static/js/main.abcd1234.js"></script> <!-- Compilado de src/index.js -->
+  </body>
+</html>
+
+👉 Ese main.abcd1234.js es en realidad todo tu src/index.js + App + componentes, pero traducido a JS puro.
+
+🔹 4. Nivel final: Firebase Hosting
+
+Firebase no entiende JSX ni tu src/.
+
+Solo sirve archivos estáticos (HTML, CSS, JS).
+
+Entonces, lo que subís es la carpeta build/.
+
+En firebase.json lo definís así:
+{
+  "hosting": {
+    "public": "build"
+  }
+}
+
+Cuando haces:
+firebase deploy
+
+👉 Firebase publica el build/index.html, que carga el main.js, y ese main.js es tu src/index.js transformado.
+
+🔹 5. Resumen de la interacción
+
+src/index.js → Renderiza tu app.
+
+public/index.html → Base HTML con <div id="root">.
+
+Build → Combina src/ + public/ en archivos listos (build/).
+
+Firebase → Sirve el build/index.html y los JS/CSS generados.
+
+📌 En otras palabras:
+Tu src/index.js nunca se sube tal cual a producción → siempre pasa por el proceso de build.
+
+------------------------------------------------------------------
+🚦 Flujo de un CRUD de Productos
+
+Usuario interactúa con la UI
+
+Por ejemplo, abre la página /productos → ahí tenés el componente ProductosPage.jsx.
+
+Ese componente muestra la lista de productos usando tu ProductoCard.jsx en modo lectura.
+
+Llamada a un servicio centralizado
+
+Cuando hay que listar, crear, editar o borrar un producto, ProductosPage no llama directamente al backend.
+
+Usa productoService.js, que tiene todas las funciones para hablar con el backend (axios.get, axios.post, etc.).
+
+Esto permite que, si mañana cambiás de backend (por ejemplo, de FastAPI a Firebase), solo modificás productoService.js y no todos tus componentes.
+
+El backend responde
+
+Los datos vienen en JSON (ej: { id, nombre, descripcion, precio, imagenes }).
+
+Esos datos se transforman en props y se pasan al componente reutilizable ProductoCard.jsx, que solo se encarga de mostrar.
+
+Reutilización de componentes
+
+ProductoCard.jsx puede usarse en:
+
+Vista de catálogo (solo lectura).
+
+Vista de administración (con botones de editar/eliminar).
+
+Vista de detalle (más información).
+
+Cambia el comportamiento según las props que le pases (editable={true} o false).
+
+Formularios separados
+
+Para crear o editar, usás ProductoForm.jsx, que es un formulario reutilizable.
+
+Podés usarlo tanto para:
+
+Crear un producto (onSubmit = crearProducto).
+
+Editar un producto (onSubmit = actualizarProducto).
+
+Centralización de lógica repetida
+
+Subida de imágenes → imageService.js.
+
+Llamadas a productos → productoService.js.
+
+Formato de precio o validaciones → podés meterlo en un archivo utils.js.
+
+🗂️ Reutilización en distintos ámbitos
+
+Componentes UI reutilizables
+
+ProductoCard: mostrar info.
+
+ProductoForm: formulario.
+
+Podrías hacer también un ImageUploader.jsx → que lo uses tanto en productos como en usuarios (si tienen avatar).
+
+Servicios reutilizables
+
+productoService: CRUD de productos.
+
+imageService: subir imágenes.
+
+Si mañana agregás usuarios, hacés usuarioService.js y mantenés la misma idea.
+
+Hooks personalizados (nivel más pro)
+
+Si querés, podés crear un hook useProductos que encapsule el estado + funciones de productos.
+
+Así lo importás en cualquier página sin duplicar código.
+
+🔄 Circuito visual simplificado
+Usuario → UI (ProductosPage)
+         → ProductoCard (mostrar)
+         → ProductoForm (crear/editar)
+         → productoService (axios → backend)
+         → Backend responde JSON
+         → UI se actualiza con nuevos datos
+
+
+👉 Con esta estructura ya podés:
+
+Reutilizar tarjetas y formularios.
+
+Cambiar solo los servicios si cambia el backend.
+
+Separar claramente presentación (React) de lógica (services).
+
+
+------------------------------------------------------------------
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+npm install swiper
+
+npm install @headlessui/react
+------------------------------------------------------------------
+
+Flujo general
+
+Firebase se encarga de la autenticación real (email/password, Google).
+
+AuthContext escucha los cambios de sesión de Firebase y guarda el usuario en memoria.
+
+useAuth es un hook para acceder al contexto en cualquier parte de la app.
+
+LoginPage / RegisterPage muestran formularios para que el usuario se autentique.
+
+PrivateRoute protege páginas privadas (ej: perfil, carrito, admin).
+
+App.js / AppRouter conecta todo (proveedor de contexto + sistema de rutas).
+
+------------------------------------------------------------------
+ 
