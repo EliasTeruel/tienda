@@ -3,16 +3,8 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 
-const Navbar = () => {
+const Navbar = ({ secciones, usuarioLogueado }) => {
   const [menuAbierto, setMenuAbierto] = useState(false);
-
-  const secciones = [
-    { texto: "inicio", ruta: "/", icono: "ic:round-home" },
-    { texto: "Gestion Productos", ruta: "/productos", icono: "mdi:hanger" }, // ícono de ropa en móvil
-    { texto: "entregas", ruta: "/auth", icono: "mdi:truck-delivery" },
-    { texto: "Admin", ruta: "/admin", icono: "mdi:credit-card-outline" },
-    // { texto: "sobre mi", ruta: "sobremi", icono: "mdi:account-circle-outline" }
-  ];
 
   const loginBotones = [
     {
@@ -39,13 +31,6 @@ const Navbar = () => {
       .join(" ");
   }
 
-  const enviarWhatsApp = () => {
-    const numero = "5491141460711";
-    const texto = "";
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-    window.open(url, "_blank");
-  };
-
   const handlerRedes = (id) => {
     switch (id) {
       case 0:
@@ -55,7 +40,6 @@ const Navbar = () => {
         alert("Facebook");
         break;
       case 2:
-        enviarWhatsApp();
         break;
       default:
         alert("Gmail");
@@ -64,7 +48,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className="fixed w-full h-[60px] text-black grid grid-cols-3 lg:grid-cols-3 items-center px-5 z-50 bg-slate-100">
+    <header className="fixed w-full h-[60px] text-black grid grid-cols-2 lg:grid-cols-3 items-center px-5 z-50 bg-slate-100">
 
       {/* Hamburguesa (solo mobile/tablet) */}
       <button
@@ -75,13 +59,13 @@ const Navbar = () => {
       </button>
 
       {/* Logo (derecha en mobile, izquierda en desktop) */}
-      <Link to="/" className="flex justify-center lg:justify-start">
+      <Link to="/" className="flex justify-end lg:justify-start">
         <img src="/logo192.png" alt="logo-y2kat" className="w-[45px]" />
       </Link>
 
       {/* Menú horizontal solo en desktop */}
       <nav className="hidden lg:flex flex-1 justify-center gap-6 order-2">
-        {secciones.map((secc, i) => (
+        {secciones?.map((secc, i) => (
           <Link
             key={i}
             to={secc.ruta}
@@ -92,21 +76,49 @@ const Navbar = () => {
         ))}
       </nav>
 
+      <div className="order-3 lg:flex hidden lg:justify-end">
+        {usuarioLogueado ? (
+          // 👉 Si hay usuario logueado, muestra foto y nombre
+          <div className="flex items-center justify-end gap-2 ml-auto">
+            <Link to="" className="w-10 h-10 rounded-full overflow-hidden bg-black">
+              <img src="/OIP.webp" alt="foto" className="w-full h-full object-cover" />
+            </Link>
+
+            <Link to="" className="text-sm">
+              <p className="font-medium">username</p>
+              <p className="text-xs text-black/80">Admin</p>
+            </Link>
+          </div>
+        ) : (
+          // 👉 Si NO hay usuario, muestra los botones de login
+          <div className="hidden lg:flex gap-3">
+            {loginBotones.map((e, i) => (
+              <Link
+                key={i}
+                to="/auth"
+                className={`${e.estilo} px-3 py-1 font-medium rounded-sm`}
+              >
+                {e.nombre}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* botones log */}
-      <div className="hidden lg:flex justify-end gap-3 order-3">
+      {/* <div className="hidden lg:flex justify-end gap-3 order-3">
         {loginBotones.map((e, i) => (
           <Link
             key={i}
-            // onClick={() => handlerRedes(i)}
             to="/auth"
             className={`${e.estilo} px-3 py-1 font-medium rounded-sm`}
           >
             {e.nombre}
           </Link>
         ))}
-      </div>
+      </div> */}
 
-      <div className="lg:hidden flex justify-end">
+      {/* <div className="lg:hidden flex justify-end">
         {redes.map((icono, i) => (
           <button key={i} onClick={() => handlerRedes(i)}>
             <Icon
@@ -116,11 +128,11 @@ const Navbar = () => {
 
           </button>
         ))}
-      </div>
+      </div> */}
 
       {/* Menú lateral mobile/tablet */}
       {menuAbierto && (
-        <div className="fixed inset-0 z-40 flex lg:hidden">
+        <div className="fixed inset-0  flex lg:hidden z-50">
 
           <div className="w-2/3 max-w-[300px] bg-white h-full p-6 flex flex-col gap-4 shadow-lg animate-slide-in-left ">
             <div className="flex justify-end">
@@ -129,19 +141,47 @@ const Navbar = () => {
               </button>
             </div>
 
-            {secciones.map((secc, i) => (
-              <a
+            {secciones?.map((secc, i) => (
+              <Link
+                to={secc.ruta}
                 key={i}
-                href={`#${secc.texto.replace(/\s+/g, "")}`}
-                className="flex items-center gap-3 text-lg hover:text-orange-400 duration-300"
+                className="flex items-center gap-3 text-lg hover:text-blue-400 duration-300"
                 onClick={() => setMenuAbierto(false)}
               >
                 <Icon icon={secc.icono} className="text-xl" />
                 {capitalizar(secc.texto)}
-              </a>
+              </Link>
             ))}
 
-            <div className="mt-auto flex gap-4 pt-6 border-t border-gray-200 justify-center">
+            <div className={`order-3 mt-auto flex pt-6 border-t border-gray-200 ${usuarioLogueado ? "justify-start" : "justify-center" } `}>
+              {usuarioLogueado ? (
+                // 👉 Si hay usuario logueado, muestra foto y nombre
+                <div className="flex items-center gap-2">
+                  <Link to="" className="w-10 h-10 rounded-full overflow-hidden bg-black">
+                    <img src="/OIP.webp" alt="foto" className="w-full h-full object-cover" />
+                  </Link>
+
+                  <Link to="" className="text-sm">
+                    <p className="font-medium">username</p>
+                    <p className="text-xs text-black/80">Admin</p>
+                  </Link>
+                </div>
+              ) : (
+                // 👉 Si NO hay usuario, muestra los botones de login
+                <div className="lg:hidden flex w-full flex-col gap-3">
+                  {loginBotones.map((e, i) => (
+                    <Link
+                      key={i}
+                      to="/auth"
+                      className={`${e.estilo}  py-1 text-center font-medium rounded-sm`}
+                    >
+                      {e.nombre}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* <div className="mt-auto flex gap-4 pt-6 border-t border-gray-200 justify-center">
               {redes.map((icono, i) => (
                 <button key={i} onClick={() => handlerRedes(i)}>
                   <Icon
@@ -151,7 +191,7 @@ const Navbar = () => {
 
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
 
           <div

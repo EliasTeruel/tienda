@@ -10,10 +10,9 @@ const Acciones = ({ titulo }) => {
   ];
 
   return (
-    // <div className="bg-red-300 flex  justify-between gap-5 h-8">
-    <div className="bg-red-300 grid grid-cols-1 lg:grid-cols-2    h-8">
+    <div className="bg-red grid grid-cols-1 lg:grid-cols-2 z-40 gap-1  h-8">
       <div className="flex lg:items-end text-xl font-medium ">
-        <h2>{titulo}</h2>
+        <h2 className="text-2xl">{titulo}</h2>
       </div>
       <div className=" flex gap-5 h-8 lg:justify-end">
 
