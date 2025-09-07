@@ -11,6 +11,13 @@ import Dashboard from "../pages/Admin/Dashboard";
 import Configuracion from "../pages/Admin/Configuracion";
 import VerProducto from "../components/Admin/VerProducto";
 
+<<<<<<< HEAD
+=======
+
+import LoginPage from "../pages/loginPage";
+import RegisterPage from "../pages/registerPage";
+
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 const AppRoutes = () => {
   return (
     <Routes>
@@ -18,6 +25,11 @@ const AppRoutes = () => {
       <Route path="/" element={<Inicio />}>
         <Route path="auth" element={<Login />} /> {/* Login como modal */}
       </Route>
+<<<<<<< HEAD
+=======
+        <Route path="login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 
       <Route path="productos" element={<ProductosPage />} /> {/* Login como modal */}
 

@@ -48,12 +48,17 @@ Instala las librerías necesarias (FastAPI, SQLAlchemy, cloudinary, etc.).
 python -m venv env
 source env/bin/activate  # Windows: .\env\Scripts\activate
 pip install fastapi uvicorn python-dotenv psycopg2-binary
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+pip install firebase-admin
+pip install email-validator
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 
 
 🚀 Backend (FastAPI)
@@ -70,6 +75,10 @@ fastapi_tienda/
 │   ├── models/                     # Modelos de base de datos (SQLAlchemy, Pydantic)
 │   │   ├── __init__.py
 │   │   ├── user_model.py
+<<<<<<< HEAD
+=======
+│   │   ├── base.py
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 │   │   ├── product_model.py
 │   │   └── order_model.py
 │   ├── schemas/                    # Esquemas Pydantic (separados de modelos DB)
@@ -83,7 +92,12 @@ fastapi_tienda/
 │   ├── routes/                     # Endpoints agrupados
 │   │   ├── auth.py
 │   │   ├── users.py
+<<<<<<< HEAD
 │   │   ├── products.py
+=======
+│   │   ├── productos.py
+│   │   ├── imagenes.py
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 │   │   └── orders.py
 │   ├── services/                   # Servicios externos
 │   │   ├── cloudinary_service.py
@@ -111,6 +125,199 @@ Utils/helpers para seguridad, validaciones, etc.
 
 Middlewares (ejemplo: logs, rate limiting, CORS) en main.py.
 
+<<<<<<< HEAD
+=======
+
+
+1️⃣ app/main.py
+
+Propósito: Punto de entrada de tu aplicación.
+
+Qué va aquí:
+
+Crear la instancia de FastAPI.
+
+Configurar middlewares (CORS, autenticación global si aplica).
+
+Registrar routers (app.include_router(...)).
+
+Rutas raíz o endpoints simples de prueba.
+
+Interacción: Llama a los routers, que a su vez llaman a los CRUD o servicios.
+
+2️⃣ app/config.py
+
+Propósito: Configuración central de variables (DB, API keys, servicios externos).
+
+Qué va aquí:
+
+Leer variables de entorno (os.getenv o dotenv).
+
+Configuración de servicios externos (Cloudinary, MercadoPago, correo, etc.).
+
+Constantes globales que se usan en varias partes.
+
+Interacción: Otros archivos importan estas configuraciones, por ejemplo:
+
+database.py usa la URL de DB.
+
+cloudinary_service.py usa las keys de Cloudinary.
+
+3️⃣ app/database.py
+
+Propósito: Conexión y gestión de la base de datos.
+
+Qué va aquí:
+
+Crear engine y SessionLocal de SQLAlchemy.
+
+Configurar parámetros especiales según el tipo de base.
+
+Interacción:
+
+Los CRUD usan SessionLocal() para abrir sesiones.
+
+Los routers usan dependencias de sesión (Depends(get_db)).
+
+4️⃣ app/models/ (Modelos SQLAlchemy)
+
+Propósito: Representación de tablas de la base de datos.
+
+Qué va aquí:
+
+Cada archivo representa una entidad:
+
+user_model.py: tabla users.
+
+product_model.py: tabla productos.
+
+order_model.py: tabla orders.
+
+base.py: contiene Base = declarative_base().
+
+Interacción:
+
+Los CRUD importan los modelos para consultar o modificar la base.
+
+No deberían contener lógica de negocio compleja, solo estructura de la DB.
+
+5️⃣ app/schemas/ (Modelos Pydantic)
+
+Propósito: Validación de datos y serialización para FastAPI.
+
+Qué va aquí:
+
+Esquemas de entrada (Create, Update) y salida (Read).
+
+Separados por entidad (user_schema.py, product_schema.py, order_schema.py).
+
+Configurar orm_mode=True para mapear objetos SQLAlchemy a JSON.
+
+Interacción:
+
+Routers reciben y devuelven objetos de estos schemas.
+
+CRUD recibe objetos Pydantic y los transforma en modelos DB.
+
+6️⃣ app/crud/ (Lógica de negocio)
+
+Propósito: Operaciones de base de datos.
+
+Qué va aquí:
+
+Funciones que hacen SELECT, INSERT, UPDATE, DELETE.
+
+Transformaciones de datos antes o después de la DB.
+
+Por entidad (user_crud.py, product_crud.py, order_crud.py).
+
+Interacción:
+
+Routers llaman a estas funciones.
+
+CRUD usa los modelos (models) y la sesión de DB (Session).
+
+No maneja rutas ni request directamente.
+
+7️⃣ app/routes/ (Endpoints)
+
+Propósito: Exponer tu API.
+
+Qué va aquí:
+
+Agrupación de rutas por entidad (users.py, productos.py, orders.py).
+
+Manejo de dependencias (Depends(get_db)).
+
+Manejo de errores (HTTPException) y validaciones.
+
+Interacción:
+
+Llama a CRUD para obtener datos de la DB.
+
+Devuelve respuestas en formato Pydantic.
+
+Puede llamar a servicios externos si es necesario (Cloudinary, pagos).
+
+8️⃣ app/services/ (Servicios externos)
+
+Propósito: Integraciones con APIs externas.
+
+Qué va aquí:
+
+Funciones para subir imágenes, procesar pagos, enviar mails.
+
+Evitar lógica de negocio en los routers; solo encapsular llamadas externas.
+
+Interacción:
+
+Routers o CRUD llaman a estos servicios.
+
+Ejemplo: imagenes.py llama a cloudinary_service.subir_imagen(...).
+
+9️⃣ app/utils/ (Helpers y utilidades)
+
+Propósito: Funciones generales reutilizables.
+
+Qué va aquí:
+
+security.py: hashing de contraseñas, JWT.
+
+pagination.py: helpers para paginación de resultados.
+
+validators.py: validaciones extra que no son del schema.
+
+Interacción:
+
+Routers, CRUD y servicios pueden usar estas funciones.
+
+🔁 Flujo típico de una petición
+
+Ejemplo: /productos/2:
+
+Cliente hace GET /productos/2.
+
+Router productos.py recibe la petición.
+
+Usa dependencia de DB (get_db) para abrir sesión.
+
+Llama a CRUD: product_crud.obtener_producto(db, 2).
+
+CRUD consulta la DB usando SQLAlchemy models.
+
+Retorna un objeto SQLAlchemy al router.
+
+Router lo convierte a Pydantic schema (response_model=Producto).
+
+FastAPI lo serializa a JSON y lo envía al cliente.
+
+
+
+
+
+
+
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 🎨 Frontend (React)
 
 Lo que tenés está bien para empezar, pero cuando agregues login, roles y carrito, conviene escalar así:
@@ -197,6 +404,7 @@ Backend: consulta APIs de envíos y calcula costos.
 Frontend: usuario elige dirección y ve tarifas dinámicas.
 
 
+<<<<<<< HEAD
 
 
 
@@ -249,6 +457,8 @@ tienda-front/
 ├── index.js
 
 
+=======
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 Guardar dependencias:
 pip freeze > requirements.txt
 
@@ -638,7 +848,23 @@ npm install swiper
 npm install @headlessui/react
 ------------------------------------------------------------------
 
+<<<<<<< HEAD
 
+=======
+Flujo general
+
+Firebase se encarga de la autenticación real (email/password, Google).
+
+AuthContext escucha los cambios de sesión de Firebase y guarda el usuario en memoria.
+
+useAuth es un hook para acceder al contexto en cualquier parte de la app.
+
+LoginPage / RegisterPage muestran formularios para que el usuario se autentique.
+
+PrivateRoute protege páginas privadas (ej: perfil, carrito, admin).
+
+App.js / AppRouter conecta todo (proveedor de contexto + sistema de rutas).
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 
 ------------------------------------------------------------------
  

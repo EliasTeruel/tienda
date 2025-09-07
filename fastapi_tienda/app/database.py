@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# app/database.py
+
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 from sqlalchemy import create_engine  # Importa el motor de base de datos
 from sqlalchemy.orm import sessionmaker  # Permite crear sesiones para interactuar con la BD
 import os  # Para manejar variables de entorno

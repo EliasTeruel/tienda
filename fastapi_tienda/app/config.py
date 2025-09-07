@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# app/config.py
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 import os  # Para manejar variables de entorno
 import cloudinary  # SDK de Cloudinary
 from dotenv import load_dotenv  # Para cargar variables desde .env
@@ -5,9 +9,15 @@ from fastapi.middleware.cors import CORSMiddleware  # Middleware para CORS
 
 load_dotenv()  # Carga las variables de entorno desde el archivo .env
 # Imprime las variables para verificar que se leen correctamente
+<<<<<<< HEAD
 print("CLOUDINARY_CLOUD_NAME:", os.getenv("CLOUDINARY_CLOUD_NAME"))
 print("CLOUDINARY_API_KEY:", os.getenv("CLOUDINARY_API_KEY"))
 print("CLOUDINARY_API_SECRET:", os.getenv("CLOUDINARY_API_SECRET"))
+=======
+# print("CLOUDINARY_CLOUD_NAME:", os.getenv("CLOUDINARY_CLOUD_NAME"))
+# print("CLOUDINARY_API_KEY:", os.getenv("CLOUDINARY_API_KEY"))
+# print("CLOUDINARY_API_SECRET:", os.getenv("CLOUDINARY_API_SECRET"))
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
 
 # Configuración de Cloudinary usando las variables de entorno
 cloudinary.config(

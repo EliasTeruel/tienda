@@ -41,10 +41,18 @@ const ListaProductos = () => {
 
 
   return (
+<<<<<<< HEAD
     <div className="flex-1 shadow-md flex flex-col min-h-0 overflow-hidden rounded-md">
       <div className="flex-1 overflow-x-auto overflow-y-auto scroll-container">
         <table className="min-w-full bg-white rounded-md">
           <thead className="bg-zinc-900 sticky top-0 shadow-sm text-white z-40">
+=======
+    <div className="flex-1 shadow-md flex flex-col min-h-0 overflow-hidden">
+      {/* <h2 className="text-xl font-bold mb-4">Lista de Productos</h2> */}
+      <div className="flex-1 overflow-x-auto overflow-y-auto rounded scroll-container">
+        <table className="min-w-full bg-white rounded-md">
+          <thead className="bg-zinc-900 sticky top-0 shadow-sm text-white z-50">
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
             <tr>
               {keys.map((e, i) => (
                 <th key={i} className="px-4 py-1 font-normal ">{e.charAt(0).toUpperCase() + e.slice(1)}</th>

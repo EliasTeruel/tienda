@@ -4,3 +4,7 @@ venv/
 
 # Ignorar archivos sensibles
 *.env
+<<<<<<< HEAD
+=======
+firebase_key.json
+>>>>>>> 2681b39bb6a30aeb24cdf2817cd92e5eafd0e13e
